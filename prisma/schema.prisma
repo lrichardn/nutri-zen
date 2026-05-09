@@ -132,3 +132,8 @@ model FoodItem {
 
   mealEntry MealEntry @relation(fields: [mealEntryId], references: [id], onDelete: Cascade)
 }
+
+model SiteSetting {
+  key   String @id
+  value String
+}

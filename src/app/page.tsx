@@ -1,9 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
+import { db } from "@/lib/db";
 
-export default function HomePage() {
+async function getHeroImageUrl(): Promise<string | null> {
+  const setting = await db.siteSetting.findUnique({ where: { key: "heroImageUrl" } });
+  return setting?.value || null;
+}
+
+export default async function HomePage() {
+  const heroImageUrl = await getHeroImageUrl();
+
   return (
     <div>
-      {/* Hero */}
+      {/* Hero texte */}
       <section
         className="relative py-28 px-4 text-white text-center"
         style={{ background: "linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%)" }}
@@ -31,6 +40,20 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Image hero pleine largeur */}
+      {heroImageUrl && (
+        <div className="relative w-full h-72 md:h-96 overflow-hidden">
+          <Image
+            src={heroImageUrl}
+            alt="Nutri'Zen"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/10" />
+        </div>
+      )}
 
       {/* Services */}
       <section className="py-20 px-4 bg-white">

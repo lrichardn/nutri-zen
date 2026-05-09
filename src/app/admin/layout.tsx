@@ -10,6 +10,7 @@ const navItems = [
   { href: "/admin/recettes", label: "Recettes", icon: "🥗" },
   { href: "/admin/articles", label: "Articles", icon: "📖" },
   { href: "/admin/clients", label: "Clients", icon: "👥" },
+  { href: "/admin/parametres", label: "Paramètres", icon: "⚙️" },
 ];
 
 const siteLink = { href: "/", label: "Retour au site", icon: "🌿" };

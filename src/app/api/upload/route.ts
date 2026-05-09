@@ -23,10 +23,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Fichier trop volumineux (max 5 Mo)." }, { status: 400 });
   }
 
+  const url = new URL(req.url);
+  const folder = url.searchParams.get("folder") === "settings" ? "settings" : "articles";
+
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   const bytes = await file.arrayBuffer();
-  const dest = join(process.cwd(), "public", "uploads", "articles", filename);
+  const dest = join(process.cwd(), "public", "uploads", folder, filename);
   await writeFile(dest, Buffer.from(bytes));
 
-  return NextResponse.json({ url: `/uploads/articles/${filename}` }, { status: 201 });
+  return NextResponse.json({ url: `/uploads/${folder}/${filename}` }, { status: 201 });
 }
