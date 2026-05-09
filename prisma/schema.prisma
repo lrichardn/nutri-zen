@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  role          String    @default("CLIENT")
+  createdAt     DateTime  @default(now())
+
+  accounts     Account[]
+  sessions     Session[]
+  appointments Appointment[]
+  mealEntries  MealEntry[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Recipe {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  imageUrl     String?
+  ingredients  String
+  instructions String
+  prepTime     Int?
+  calories     Int?
+  category     String?
+  published    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model Article {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  imageUrl  String?
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Appointment {
+  id        String    @id @default(cuid())
+  userId    String?
+  slotId    String?   @unique
+  name      String
+  email     String
+  phone     String?
+  type      String
+  message   String?
+  status    String    @default("PENDING")
+  createdAt DateTime  @default(now())
+
+  user User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  slot AvailableSlot? @relation(fields: [slotId], references: [id], onDelete: SetNull)
+}
+
+model AvailableSlot {
+  id          String   @id @default(cuid())
+  date        DateTime
+  duration    Int      @default(60)
+  booked      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  appointment Appointment?
+}
+
+model MealEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime
+  mealType  String
+  createdAt DateTime @default(now())
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  foodItems FoodItem[]
+}
+
+model FoodItem {
+  id          String @id @default(cuid())
+  mealEntryId String
+  name        String
+  calories    Float
+  proteins    Float  @default(0)
+  carbs       Float  @default(0)
+  fats        Float  @default(0)
+  quantity    Float  @default(1)
+  unit        String @default("g")
+
+  mealEntry MealEntry @relation(fields: [mealEntryId], references: [id], onDelete: Cascade)
+}

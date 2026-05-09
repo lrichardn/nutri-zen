@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
+
+# base de données locale
+dev.db
+*.db
+
+# uploads locaux
+/public/uploads/
+
+# Claude Code
+.claude/

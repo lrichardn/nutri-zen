@@ -1,65 +1,130 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div>
+      {/* Hero */}
+      <section
+        className="relative py-28 px-4 text-white text-center"
+        style={{ background: "linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%)" }}
+      >
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            Votre santé commence dans votre assiette
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl mb-8 opacity-90">
+            Ici vous découvrirez des conseils en nutrition et rééquilibrage alimentaire pour une alimentation équilibrée et personnalisée.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/reservation"
+              className="px-8 py-3 rounded-full font-semibold text-white border-2 border-white hover:bg-white hover:text-[#3d6b41] transition-colors"
+            >
+              Prendre rendez-vous
+            </Link>
+            <Link
+              href="/recettes"
+              className="px-8 py-3 rounded-full font-semibold bg-white text-[#3d6b41] hover:bg-opacity-90 transition-colors"
+            >
+              Découvrir les recettes
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Services */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#3d6b41]">
+            Mes prestations
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+              <div className="text-4xl mb-4">🌿</div>
+              <h3 className="text-xl font-bold mb-2">Première consultation</h3>
+              <p className="text-gray-500 text-sm mb-4">1h30</p>
+              <p className="text-gray-600 mb-6">
+                Un bilan complet de vos habitudes alimentaires pour établir un programme personnalisé adapté à vos objectifs.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-bold text-[#5a8a5e]">60 €</span>
+                <Link
+                  href="/reservation"
+                  className="px-5 py-2 rounded-full text-sm font-medium text-white bg-[#5a8a5e] hover:bg-[#3d6b41] transition-colors"
+                >
+                  Réserver
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+              <div className="text-4xl mb-4">📋</div>
+              <h3 className="text-xl font-bold mb-2">Suivi nutritionnel</h3>
+              <p className="text-gray-500 text-sm mb-4">1h</p>
+              <p className="text-gray-600 mb-6">
+                Un accompagnement régulier pour ajuster votre programme, répondre à vos questions et maintenir vos progrès.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-bold text-[#5a8a5e]">50 €</span>
+                <Link
+                  href="/reservation"
+                  className="px-5 py-2 rounded-full text-sm font-medium text-white bg-[#5a8a5e] hover:bg-[#3d6b41] transition-colors"
+                >
+                  Réserver
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* Pourquoi choisir */}
+      <section className="py-20 px-4 bg-[#e8f0e9]">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#3d6b41]">
+            Pourquoi Nutri&apos;Zen ?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {[
+              { icon: "🥗", title: "Approche personnalisée", desc: "Chaque programme est adapté à votre profil, vos goûts et vos objectifs." },
+              { icon: "📊", title: "Suivi régulier", desc: "Suivez vos repas et votre progression depuis votre espace personnel." },
+              { icon: "💚", title: "Sans privation", desc: "Rééquilibrez votre alimentation sans frustration ni régimes stricts." },
+            ].map((item) => (
+              <div key={item.title} className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="py-20 px-4 text-center bg-white">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-[#3d6b41]">
+            Prêt(e) à commencer ?
+          </h2>
+          <p className="text-gray-600 mb-8">
+            Créez votre espace personnel pour suivre vos repas au quotidien, ou prenez directement rendez-vous.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/inscription"
+              className="px-8 py-3 rounded-full font-semibold text-white bg-[#5a8a5e] hover:bg-[#3d6b41] transition-colors"
+            >
+              Créer mon espace
+            </Link>
+            <Link
+              href="/reservation"
+              className="px-8 py-3 rounded-full font-semibold border-2 border-[#5a8a5e] text-[#5a8a5e] hover:bg-[#e8f0e9] transition-colors"
+            >
+              Prendre rendez-vous
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
