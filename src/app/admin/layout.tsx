@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import SignOutButton from "@/components/admin/SignOutButton";
 
 const navItems = [
   { href: "/admin", label: "Tableau de bord", icon: "📊" },
@@ -11,13 +12,15 @@ const navItems = [
   { href: "/admin/clients", label: "Clients", icon: "👥" },
 ];
 
+const siteLink = { href: "/", label: "Retour au site", icon: "🌿" };
+
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
   const role = (session?.user as { role?: string })?.role;
   if (role !== "ADMIN") redirect("/dashboard");
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)]">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside className="w-56 shrink-0 bg-[#1a2e1b] text-white flex flex-col">
         <div className="px-5 py-6 border-b border-white/10">
@@ -36,10 +39,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </Link>
           ))}
         </nav>
-        <div className="px-5 py-4 border-t border-white/10">
-          <Link href="/" className="text-xs text-white/40 hover:text-white/70 transition-colors">
-            ← Retour au site
+        <div className="py-2 border-t border-white/10">
+          <Link
+            href={siteLink.href}
+            className="flex items-center gap-3 px-5 py-3 text-sm text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+          >
+            <span>{siteLink.icon}</span>
+            {siteLink.label}
           </Link>
+          <SignOutButton />
         </div>
       </aside>
 
