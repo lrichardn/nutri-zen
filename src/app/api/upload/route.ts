@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { writeFile } from "fs/promises";
-import { join } from "path";
+import { put } from "@vercel/blob";
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -26,10 +25,8 @@ export async function POST(req: Request) {
   const url = new URL(req.url);
   const folder = url.searchParams.get("folder") === "settings" ? "settings" : "articles";
 
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-  const bytes = await file.arrayBuffer();
-  const dest = join(process.cwd(), "public", "uploads", folder, filename);
-  await writeFile(dest, Buffer.from(bytes));
+  const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const blob = await put(filename, file, { access: "public" });
 
-  return NextResponse.json({ url: `/uploads/${folder}/${filename}` }, { status: 201 });
+  return NextResponse.json({ url: blob.url }, { status: 201 });
 }
