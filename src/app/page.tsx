@@ -15,9 +15,23 @@ export default async function HomePage() {
       {/* Hero texte */}
       <section
         className="relative py-28 px-4 text-white text-center"
-        style={{ background: "linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%)" }}
+        style={!heroImageUrl ? { background: "linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%)" } : undefined}
       >
-        <div className="max-w-3xl mx-auto">
+        {heroImageUrl && (
+          <>
+            <div className="absolute -top-8 -bottom-8 left-0 right-0">
+              <Image
+                src={heroImageUrl}
+                alt="Nutri'Zen"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            <div className="absolute -top-8 -bottom-8 left-0 right-0 bg-black/45" />
+          </>
+        )}
+        <div className="relative z-10 max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Votre santé commence dans votre assiette
           </h1>
@@ -40,20 +54,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Image hero pleine largeur */}
-      {heroImageUrl && (
-        <div className="relative w-full h-72 md:h-96 overflow-hidden">
-          <Image
-            src={heroImageUrl}
-            alt="Nutri'Zen"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/10" />
-        </div>
-      )}
 
       {/* Services */}
       <section className="py-20 px-4 bg-white">
