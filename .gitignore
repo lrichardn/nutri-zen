@@ -52,3 +52,6 @@ dev.db
 
 # Claude Code
 .claude/
+
+# IDE
+.idea/
